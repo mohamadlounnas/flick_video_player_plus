@@ -106,6 +106,7 @@ class FlickPortraitControls extends StatelessWidget {
                         width: iconSize / 2,
                       ),
                       // icon for speed
+
                       GestureDetector(
                         onTap: () {
                           showDialog(
