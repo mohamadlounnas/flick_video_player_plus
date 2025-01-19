@@ -94,11 +94,8 @@ class _FlickVideoWithControlsState extends State<FlickVideoWithControls> {
   VideoPlayerController? _videoPlayerController;
   @override
   void didChangeDependencies() {
-    VideoPlayerController? newController =
-        Provider.of<FlickVideoManager>(context).videoPlayerController;
-    if ((widget.willVideoPlayerControllerChange &&
-            _videoPlayerController != newController) ||
-        _videoPlayerController == null) {
+    VideoPlayerController? newController = Provider.of<FlickVideoManager>(context).videoPlayerController;
+    if ((widget.willVideoPlayerControllerChange && _videoPlayerController != newController) || _videoPlayerController == null) {
       _videoPlayerController = newController;
     }
 
@@ -107,8 +104,7 @@ class _FlickVideoWithControlsState extends State<FlickVideoWithControls> {
 
   @override
   Widget build(BuildContext context) {
-    FlickControlManager controlManager =
-        Provider.of<FlickControlManager>(context);
+    FlickControlManager controlManager = Provider.of<FlickControlManager>(context);
     bool _showVideoCaption = controlManager.isSub;
     return IconTheme(
       data: widget.iconThemeData,
@@ -128,31 +124,23 @@ class _FlickVideoWithControlsState extends State<FlickVideoWithControls> {
                         )
                       : widget.playerLoadingFallback,
                 ),
+
                 Positioned.fill(
                   child: Stack(
                     alignment: Alignment.bottomCenter,
                     children: <Widget>[
-                      _videoPlayerController?.closedCaptionFile != null &&
-                              _showVideoCaption
+                      _videoPlayerController?.closedCaptionFile != null && _showVideoCaption
                           ? Positioned(
                               bottom: 5,
                               child: Transform.scale(
                                 scale: 0.7,
-                                child: ClosedCaption(
-                                    textStyle: widget.closedCaptionTextStyle,
-                                    text: _videoPlayerController!
-                                        .value.caption.text),
+                                child: ClosedCaption(textStyle: widget.closedCaptionTextStyle, text: _videoPlayerController!.value.caption.text),
                               ),
                             )
                           : SizedBox(),
-                      if (_videoPlayerController?.value.hasError == false &&
-                          _videoPlayerController?.value.isInitialized == false)
-                        widget.playerLoadingFallback,
-                      if (_videoPlayerController?.value.hasError == true)
-                        widget.playerErrorFallback,
-                      if (_videoPlayerController != null &&
-                          _videoPlayerController!.value.isInitialized)
-                        widget.controls ?? Container(),
+                      if (_videoPlayerController?.value.hasError == false && _videoPlayerController?.value.isInitialized == false) widget.playerLoadingFallback,
+                      if (_videoPlayerController?.value.hasError == true) widget.playerErrorFallback,
+                      if (_videoPlayerController != null && _videoPlayerController!.value.isInitialized) widget.controls ?? Container(),
                     ],
                   ),
                 ),
